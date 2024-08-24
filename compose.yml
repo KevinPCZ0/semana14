@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3006:3005"
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: kevin
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: integradora
+      JWT_SECRET: eq2
+    depends_on:
+      - db
+  db:
+    env_file:
+      - .env
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: kevin
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: integradora
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
